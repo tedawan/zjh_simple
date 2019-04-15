@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="addplus_connector" />
+        <module name="addplus_oss" />
+        <module name="addplus_provider" />
+        <module name="addplus_consumer" />
+        <module name="addplus_shiro" />
+        <module name="addplus_api" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel target="1.8">
+      <module name="addplus_api" target="1.8" />
+      <module name="addplus_connector" target="1.8" />
+      <module name="addplus_consumer" target="1.8" />
+      <module name="addplus_oss" target="1.8" />
+      <module name="addplus_provider" target="1.8" />
+      <module name="addplus_shiro" target="1.8" />
+      <module name="zjh_simple" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

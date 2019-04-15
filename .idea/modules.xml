@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/addplus_api/addplus_api.iml" filepath="$PROJECT_DIR$/addplus_api/addplus_api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/addplus_connector/addplus_connector.iml" filepath="$PROJECT_DIR$/addplus_connector/addplus_connector.iml" />
+      <module fileurl="file://$PROJECT_DIR$/addplus_consumer/addplus_consumer.iml" filepath="$PROJECT_DIR$/addplus_consumer/addplus_consumer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/addplus_oss/addplus_oss.iml" filepath="$PROJECT_DIR$/addplus_oss/addplus_oss.iml" />
+      <module fileurl="file://$PROJECT_DIR$/addplus_provider/addplus_provider.iml" filepath="$PROJECT_DIR$/addplus_provider/addplus_provider.iml" />
+      <module fileurl="file://$PROJECT_DIR$/addplus_shiro/addplus_shiro.iml" filepath="$PROJECT_DIR$/addplus_shiro/addplus_shiro.iml" />
+      <module fileurl="file://$PROJECT_DIR$/zjh_simple.iml" filepath="$PROJECT_DIR$/zjh_simple.iml" />
+    </modules>
+  </component>
+</project>

@@ -1,0 +1,46 @@
+# mongodb配置
+mongo:
+  socketKeepAlive: false
+  threadsAllowed: 10
+  connectionsPerHost: 50
+  maxWaitTime: 20000
+  connectTimeout: 20000
+  socketTimeout: 20000
+  writeConcern: 0
+---
+# redis配置
+spring:
+  redis:
+    timeout: 4000
+    max-redirects: 5
+    maxIdle: 1000
+    maxTotal: 1000
+    maxWaitMillis: 1000
+    expire: 86400
+---
+#连接池的配置信息
+datasource:
+  druid:
+    initialSize: 10
+    minIdle: 10
+    maxActive: 100
+    maxWait: 20000
+    timeBetweenEvictionRunsMillis: 3600000
+    minEvictableIdleTimeMillis: 120000
+    removeAbandoned: true
+    removeAbandonedTimeout: 6000000
+    validationQuery: SELECT 1
+    numTestsPerEvictionRun: 50 1
+    testWhileIdle: true
+    testOnBorrow: true
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 100
+    filters: stat,wall,log4j
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+  driverClassName: com.mysql.jdbc.Driver
+---
+mybatis:
+  type-aliases-package: com.addplus.server.api.model
+  mapper-locations: classpath:/mapper/**/*.xml
+

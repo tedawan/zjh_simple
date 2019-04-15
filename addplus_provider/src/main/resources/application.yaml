@@ -1,0 +1,55 @@
+# 多环境配置文件激活属性
+spring:
+  profiles:
+    active: dev
+    include: connector,oss
+---
+#配置需要加载的数据源,redis,mysql.,mongodb
+addplus:
+  redis_connector: true
+  mysql_connector: true
+  mongodb_connector: true
+---
+#出现错误时, 直接抛出异常
+spring:
+    mvc:
+        throw-exception-if-no-handler-found: true
+    resources:
+        add-mappings: false
+---
+spring:
+  application:
+      name: addplus_rest_provider
+---
+#Dubbo 配置
+dubbo:
+  scan:
+    basePackages: com.addplus.server.provider.serviceimpl
+  application:
+    id: addplus_provider
+    name: addplus_provider
+    owner: addplus
+    logger: slf4j
+  protocol:
+    id: dubbo
+    name: dubbo
+    status: server
+    serialization: fst
+  registry:
+    id: addplus_provider_registry
+    protocol: dubbo
+    timeout: 5000
+  provider:
+    filter: TokenFilter
+  reference:
+    check: false
+---
+# 自定义注解方法扫描路径
+annotation:
+  package:
+    name: com.addplus.server.provider.serviceimpl
+---
+#logging
+logging:
+  config: classpath:logback-spring.xml
+---

@@ -1,0 +1,61 @@
+# 多环境配置文件激活属性
+spring:
+  profiles:
+    active: dev
+    include: connector,oss
+---
+#出现错误时, 直接抛出异常
+spring:
+  mvc:
+    throw-exception-if-no-handler-found: true
+  resources:
+    add-mappings: true
+  jackson:
+    time-zone: GMT+8
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: true
+    default-property-inclusion: non_null
+---
+#Dubbo 配置
+spring:
+  application:
+    name: addplus_consumer
+  # spring autoconfigure排除注入jdbc.DataSource,如若使用到mysql请注释掉
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration,org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration
+
+---
+# Dubbo ApplicationConfig配置
+dubbo:
+  application:
+    id: addplus_consumer
+    name: addplus_consumer
+    owner: addplus
+  protocol:
+    id: dubbo
+    name: dubbo
+    serialization: fst
+  registry:
+    id: addplus_consumer_registry
+    protocol: dubbo
+    timeout: 30000
+  package:
+    name: com.addplus.server.api.service
+---
+#logging
+logging:
+  config: classpath:logback-spring.xml
+---
+#shrio账号锁定配置
+shrio:
+  login:
+    maxRetry: 10
+    lockTime: 3600
+---
+#thymeleaf 展示参数，token的js加解密方法
+spring:
+  thymeleaf:
+    mode: HTML5
+    encoding: UTF-8
+    cache: false   #开发时关闭缓存,不然没法看到实时页面
+---

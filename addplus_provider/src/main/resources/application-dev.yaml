@@ -1,0 +1,39 @@
+# 服务端口
+server:
+  port: 9090
+---
+# mysql数据配置
+datasource:
+  type: com.alibaba.druid.pool.DruidDataSource
+  url: jdbc:mysql://127.0.0.1:3306/kplive?useUnicode=true&characterEncoding=utf-8&useSSL=false
+  username: root
+  password: 9926jiehang
+---
+# mongodb配置
+mongo:
+  host: 192.168.3.135
+  port: 27017
+  database: lanyue
+  username: addplus
+  password: addplus@520
+---
+# redis配置
+spring:
+  redis:
+    #启用模式  cluster：集群  master:单/多个节点
+    nodes: 192.168.3.135:6388,192.168.3.135:6389
+    model: master
+    password: 1q2w3e4R
+---
+#dubbo配置
+dubbo:
+  protocol:
+    port: 20880
+  registry:
+    address: nacos://127.0.0.1:8848
+---
+# 是否开启日志访问记录
+log:
+  record:
+    operator: false
+---

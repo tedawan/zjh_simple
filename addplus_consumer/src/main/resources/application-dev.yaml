@@ -1,0 +1,38 @@
+# 服务端口
+server:
+  port: 8080
+  servlet:
+    multipart:
+      max-file-size: 100Mb
+      max-request-size: 100Mb
+---
+#配置需要加载的数据源
+addplus:
+  redis_connector: true
+  mysql_connector: true
+  mongodb_connector: false
+---
+# dubbo配置
+dubbo:
+  protocol:
+    port: 20081
+  registry:
+    address: nacos://127.0.0.1:8848
+---
+# mysql数据配置
+datasource:
+  type: com.alibaba.druid.pool.DruidDataSource
+  url: jdbc:mysql://127.0.0.1:3306/kplive?useUnicode=true&characterEncoding=utf-8&useSSL=false
+  username: root
+  password: 9926jiehang
+---
+# redis配置
+spring:
+  redis:
+    nodes: 192.168.3.135:6388,192.168.3.135:6389
+    model: master #启用模式  cluster：集群  master:单/多个节点
+    password: 1q2w3e4R
+---
+# 参数开启加密开关
+param:
+  encryted: false

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <title>JS加解密</title>
+    <script type="text/javascript" src="../static/js/jquery.min.js" th:src="@{/js/jquery.min.js}"></script>
+    <script src="../static/js/rollups/tripledes.js" th:src="@{/js/rollups/tripledes.js}"></script>
+    <script src="../static/js/components/mode-ecb.js" th:src="@{/js/components/mode-ecb.js}"></script>
+    <script src="../static/js/aes.js" th:src="@{/js/aes.js}"></script>
+    <script src="../static/js/sha1.js" th:src="@{/js/sha1.js}"></script>
+    <link rel="stylesheet" href="../static/layui/css/layui.css" media="all" th:href="@{/layui/css/layui.css}"/>
+    <script>
+        //AES 解密 加密
+        function encryptByDES(message, key,ivcontext) {
+            var keyHex = CryptoJS.enc.Utf8.parse(key);
+            var iv = CryptoJS.enc.Utf8.parse(ivcontext)
+            var encrypted = CryptoJS.AES.encrypt(message, keyHex, {
+                iv: iv,
+                mode: CryptoJS.mode.CBC,
+                padding: CryptoJS.pad.Pkcs7
+            });
+            return CryptoJS.enc.Base64.stringify(encrypted.ciphertext);
+        }
+
+        //AES 解密
+        function decryptByDES(ciphertext, key,ivcontext) {
+            var keyHex = CryptoJS.enc.Utf8.parse(key);
+            var iv = CryptoJS.enc.Utf8.parse(ivcontext)
+            // direct decrypt ciphertext
+            var decrypted = CryptoJS.AES.decrypt({
+                ciphertext: CryptoJS.enc.Base64.parse(ciphertext)
+            }, keyHex, {
+                iv: iv,
+                mode: CryptoJS.mode.CBC,
+                padding: CryptoJS.pad.Pkcs7
+            });
+            return decrypted.toString(CryptoJS.enc.Utf8);
+        }
+
+        //SHA1 加密
+        function encryptBySHA1(message) {
+            return hex_sha1(message).substring(0,16);
+        }
+    </script>
+    <script>
+        //加密
+        function encryptStr() {
+            var strKey = $.trim($('#key').val());
+            var strMsg = $.trim($('#text1').val());
+            var iv = $.trim($('#ixconetxt').val());
+            $('#text2').val(encryptByDES(strMsg, strKey,iv));
+        }
+
+        //解密
+        function decryptStr() {
+            var strKey = $.trim($('#key').val());
+            var ciphertext = $.trim($('#text2').val());
+            var iv = $.trim($('#ixconetxt').val());
+            $('#text1').val(decryptByDES(ciphertext, strKey,iv));
+        }
+
+        //SHA1加密
+        function encryptSHA1Str() {
+            var strMsg = $.trim($('#text3').val());
+            $('#text4').val(encryptBySHA1(strMsg));
+        }
+    </script>
+</head>
+<body>
+<div class="layui-container">
+    <div class="layui-row">
+        <div class="layui-col-md1">
+            <label class="layui-form-label">偏移量：</label>
+        </div>
+        <div class="layui-col-md7">
+            <input id="ixconetxt" type="text" name="title" lay-verify="required" placeholder="请输入偏移量" autocomplete="off"
+                   class="layui-input" value='addplus+addplus+'/>
+        </div>
+    </div>
+    <div class="layui-row">
+        <div class="layui-col-md1">
+            <label class="layui-form-label">密钥：</label>
+        </div>
+        <div class="layui-col-md7">
+            <input id="key" type="text" name="title" lay-verify="required" placeholder="请输入密钥" autocomplete="off"
+                   class="layui-input" value='0355973c15ac33d7'/>
+        </div>
+    </div>
+    <div class="layui-row">
+        <div class="layui-col-md1">
+            <label class="layui-form-label">加密字符：</label>
+        </div>
+        <div class="layui-col-md9">
+            <input id="text1" type="text" name="title" lay-verify="required" placeholder="请输入需要加密的字符" autocomplete="off"
+                   class="layui-input" value="1529415916000.post.businessmodule.UserService.getUserById"/>
+        </div>
+        <div class="layui-col-md2">
+            <button class="layui-btn" onclick="encryptStr();">加密</button>
+        </div>
+    </div>
+    <div class="layui-row">
+        <div class="layui-col-md1">
+            <label class="layui-form-label">解密字符：</label>
+        </div>
+        <div class="layui-col-md9">
+            <input id="text2" type="text" name="title" lay-verify="required" placeholder="请输入需要解密的字符" autocomplete="off"
+                   class="layui-input"/>
+        </div>
+        <div class="layui-col-md2">
+            <button class="layui-btn" onclick="decryptStr();">解密</button>
+        </div>
+    </div>
+    <div class="layui-row">
+        <div class="layui-col-md1">
+            <label class="layui-form-label">SHA1加密字符：</label>
+        </div>
+        <div class="layui-col-md4">
+            <input id="text3" type="text" name="title" lay-verify="required" placeholder="请输入需要SHA1加密字符" autocomplete="off"
+                   class="layui-input"/>
+        </div>
+        <div class="layui-col-md4">
+            <input id="text4" type="text" name="title" lay-verify="required" autocomplete="off"
+                   class="layui-input"/>
+        </div>
+        <div class="layui-col-md1">
+            <button class="layui-btn" onclick="encryptSHA1Str();">sha1加密</button>
+        </div>
+    </div>
+    <div class="layui-row">
+        <div class="layui-col-md3">
+            <button class="layui-btn"
+                    onclick="window.open('https://blog.csdn.net/WangYangsea/article/details/78736513')">ES6加解密博客
+            </button>
+        </div>
+    </div>
+</div>
+</body>
+</html>
